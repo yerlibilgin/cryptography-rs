@@ -81,8 +81,15 @@ impl AlgorithmIdentifier {
       self.parameters.clone()
     } else {
       // Fallback: provide NULL for RSA/others to satisfy picky parsers
-      Some(AlgorithmParameter(Captured::from_values(mode, ().encode_as(Tag::NULL))))
+//      Some(AlgorithmParameter(Captured::from_values(mode, ().encode_as(Tag::NULL))));
+      None
     };
+
+    //let params = if let Some(_) = &self.parameters {
+    //  Some(AlgorithmParameter(Captured::from_values(mode, ().encode_as(Tag::NULL))))
+    //} else {
+    //  None
+    //};
 
     // By passing an Option as the second element, bcder will omit it if it is None
     encode::sequence((self.algorithm.clone().encode(), params))
